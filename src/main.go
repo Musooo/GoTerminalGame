@@ -67,6 +67,10 @@ func main() {
 		}
 
 		field.matrix[player.y][player.x] = " @ "
+		if(IsCoinTouched(coin,player)){
+			player.score++
+			GenerateCoin(&coin,&field,player)
+		}
 		PrintMap(field)
 	}
 }

@@ -43,14 +43,14 @@ func GenerateCoin(c *Coin, f *Field, p Player) {
     c.x = 1 + rand.Intn(5-1)
     c.y = 1 + rand.Intn(7-1)
 
-    if(isCoinTouched(*c, p)){
+    if(IsCoinTouched(*c, p)){
         GenerateCoin(c, f, p)
     }else {
         f.matrix[c.y][c.x] = " 0 "
     }
 }
 
-func isCoinTouched(c Coin, p Player) bool{
+func IsCoinTouched(c Coin, p Player) bool{
     if(c.x == p.x && c.y == p.y){
         return true
     }
