@@ -15,31 +15,28 @@ func PrintMap(f Field) {
     }
 }
 
-func PositionPlayer(f *Field, p Player){
-    f.matrix[p.y][p.x] = " @ "
-}
-
-func UpdatePlayerPos(p *Player, f *Field, x, y int){
+func UpdateXPlayerPos(p *Player, f *Field, x int){
     switch x{
         case 0:
-            p.x++
+            fallthrough
         case 6:
-            p.x--
+            break
         default:
             f.matrix[p.y][p.x] = "   "
             p.x = x
-            PositionPlayer(f, *p)
     }
+}
+
+func UpdateYPlayerPos(p *Player, f *Field, y int){
     switch y{
-        case 0:
-            p.y++
-        case 8:
-            p.y--
-        default:
-            f.matrix[p.y][p.x] = "   "
-            p.y = y
-            PositionPlayer(f, *p)
-    }
+    case 0:
+        fallthrough
+    case 8:
+        break
+    default:
+        f.matrix[p.y][p.x] = "   "
+        p.y = y
+}
 }
 
 func GenerateCoin(c *Coin, f *Field, p Player) {

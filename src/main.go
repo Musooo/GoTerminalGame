@@ -28,16 +28,21 @@ var field Field = Field{
 }
 
 func main() {
-	PositionPlayer(&field, player)
+
+	field.matrix[player.y][player.x] = " @ "
 	GenerateCoin(&coin, &field, player)
 	PrintMap(field)
+
 	keysEvents, err := keyboard.GetKeys(10)
+
 	if err != nil {
 		panic(err)
 	}
+
 	defer func() {
 		_ = keyboard.Close()
 	}()
+
 	for {
 		event := <-keysEvents
 		if event.Err != nil {
@@ -48,15 +53,20 @@ func main() {
 		}
 		switch event.Key{
 			case keyboard.KeyArrowDown:
-				player.y++
+				y := player.y+1
+				UpdateYPlayerPos(&player,&field,y)
 			case keyboard.KeyArrowRight:
-				player.x++
+				x := player.x+1
+				UpdateXPlayerPos(&player,&field,x)
 			case keyboard.KeyArrowLeft:
-				player.x--
+				x := player.x-1
+				UpdateXPlayerPos(&player,&field,x)
 			case keyboard.KeyArrowUp:
-				player.y--
+				y := player.y-1
+				UpdateYPlayerPos(&player,&field,y)
 		}
-		UpdatePlayerPos(&player,&field,player.x,player.y)
+
+		field.matrix[player.y][player.x] = " @ "
 		PrintMap(field)
 	}
 }
