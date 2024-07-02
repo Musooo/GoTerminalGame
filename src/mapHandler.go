@@ -22,9 +22,9 @@ func PositionPlayer(f *Field, p Player){
 func UpdatePlayerPos(p *Player, f *Field, x, y int){
     switch x{
         case 0:
-            fallthrough
+            p.x++
         case 6:
-            break
+            p.x--
         default:
             f.matrix[p.y][p.x] = "   "
             p.x = x
@@ -32,9 +32,9 @@ func UpdatePlayerPos(p *Player, f *Field, x, y int){
     }
     switch y{
         case 0:
-            fallthrough
+            p.y++
         case 8:
-            break
+            p.y--
         default:
             f.matrix[p.y][p.x] = "   "
             p.y = y
@@ -45,7 +45,6 @@ func UpdatePlayerPos(p *Player, f *Field, x, y int){
 func GenerateCoin(c *Coin, f *Field, p Player) {
     c.x = 1 + rand.Intn(5-1)
     c.y = 1 + rand.Intn(7-1)
-    //check if the pos is the same as the player
 
     if(isCoinTouched(*c, p)){
         GenerateCoin(c, f, p)
